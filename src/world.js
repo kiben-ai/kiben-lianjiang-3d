@@ -9,7 +9,7 @@ export const inside=(x,y,p)=>{let c=false;for(let i=0,j=p.length-1;i<p.length;j=
 let seed=88;const rand=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
 const clamp=T.MathUtils.clamp;
 export async function createWorld(scene,onProgress){
- const [regional,city,osm,river,coastal]=await Promise.all(['terrain','city-terrain','map','river','coastal'].map(async name=>{let r=await fetch(`/data/${name}.json`);if(!r.ok)throw new Error(`${name} 地理数据载入失败`);return r.json();}));
+ const [regional,city,osm,river,coastal]=await Promise.all(['terrain','city-terrain','map','river','coastal'].map(async name=>{let r=await fetch(`./data/${name}.json`);if(!r.ok)throw new Error(`${name} 地理数据载入失败`);return r.json();}));
  const features=[...osm.elements,...coastal.elements],land=new T.Group(),buildings=new T.Group(),roads=new T.Group(),trees=new T.Group();scene.add(land);land.add(buildings,roads,trees);
  function sample(data,lon,lat){const [w,s,e,n]=data.bounds;const gx=clamp((lon-w)/(e-w)*(data.nx-1),0,data.nx-1.001),gz=clamp((n-lat)/(n-s)*(data.ny-1),0,data.ny-1.001),x=Math.floor(gx),z=Math.floor(gz),a=gx-x,b=gz-z,i=z*data.nx+x,h=data.heights;return T.MathUtils.lerp(T.MathUtils.lerp(h[i],h[i+1],a),T.MathUtils.lerp(h[i+data.nx],h[i+data.nx+1],a),b)/UNIT;}
  function height(x,z){const [lon,lat]=unproject(x,z),[w,s,e,n]=city.bounds;return sample(lon>w&&lon<e&&lat>s&&lat<n?city:regional,lon,lat);}
