@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#203c36"><title>连江 · 江海之间 | 交互式三维地图</title></head>
+<body>
+<div id="scene"></div><div id="labels" aria-label="地图地标"></div>
+<header><a class="brand" href="#" aria-label="返回连江县城"><span class="brand-mark">连</span><span>连江 <small>JIANG & SEA</small></span></a><div class="header-caption">福 建 · 福 州 <span>26°12′ N / 119°32′ E</span></div><button id="sources-button" class="quiet">地理与建模依据 ↗</button></header>
+<aside class="explorer">
+<div class="eyebrow">LIANJIANG, FUJIAN</div><h1>江海之间<span>连江</span></h1><p class="intro">从敖江畔的凤城，<br>到黄岐半岛的海风。</p>
+<div class="view-tabs" aria-label="地图范围"><button data-go="city" class="active">县城近览</button><button data-go="region">山海全景</button></div>
+<div class="section-label">沿着连江探索 <span>EXPLORE</span></div><nav id="destinations" aria-label="探索地点"></nav>
+<div class="local-note"><span>一江绕城 · 山海相连</span><p>凤城位于敖江下游平原。江水绕过县城南缘，再折向东北，经浦口、东岱入海。</p></div>
+</aside>
+<div class="top-controls"><div class="times" aria-label="光照"><button data-time="day" class="active" aria-pressed="true">晴昼</button><button data-time="sunset" aria-pressed="false">暮色</button><button data-time="night" aria-pressed="false">灯火</button></div><button id="tour" class="pill" aria-pressed="false">▷ 环绕</button></div>
+<div class="right-tools"><button id="north" aria-label="恢复北向" title="恢复北向"><span id="compass">↑</span><small>N</small></button><button id="zoom-in" aria-label="放大">＋</button><button id="zoom-out" aria-label="缩小">−</button><button id="top" aria-label="俯视地图" title="俯视地图">⊞</button><button id="layers-button" aria-label="显示图层设置" aria-expanded="false" title="图层">▱</button><button id="capture" aria-label="保存场景图片" title="保存场景图片">▣</button><button id="fullscreen" aria-label="全屏" title="全屏">⛶</button></div>
+<section id="layers" hidden><strong>地图图层</strong><label><input id="show-buildings" type="checkbox" checked>建筑</label><label><input id="show-labels" type="checkbox" checked>地名标注</label><label><input id="show-roads" type="checkbox" checked>道路</label><label><input id="show-trees" type="checkbox" checked>树木</label><small>建筑与地形使用同一尺度，无高度夸张。</small></section>
+<section id="detail" hidden aria-live="polite"><button id="close-detail" aria-label="关闭地点详情">×</button><div id="detail-kicker" class="eyebrow"></div><h2 id="detail-title"></h2><p id="detail-copy"></p><div id="detail-meta"></div><button id="detail-action">近看建筑 ↗</button></section>
+<footer><div class="view-status"><i></i><span id="view-name">凤城县城</span><span class="divider">/</span><span id="camera-height">正在进入</span></div><div class="hint">拖动旋转 · 滚轮缩放 · 右键平移 · 点击地标</div><div class="scale"><div id="scale-line"></div><span id="scale-text">500 m</span></div></footer>
+<div class="attribution">© OpenStreetMap contributors · 地形：Mapzen / AWS Terrain Tiles</div>
+<div id="loading"><div class="loader-mark">连江</div><p id="loading-text">正在铺开敖江与山海…</p><div class="loading-line"></div></div><div id="toast" role="status"></div>
+<dialog id="sources"><button id="close-sources" aria-label="关闭资料说明">×</button><div class="eyebrow">GROUNDED IN LIANJIANG</div><h2>地理与建模依据</h2><p>山体来自连江实际高程栅格，县城道路、敖江水域与建筑轮廓来自 OpenStreetMap。平面距离和高度统一换算，不单独拉高建筑。</p><ul>
+<li><a href="https://www.google.com/maps/@26.215,119.55,13z" target="_blank" rel="noreferrer">Google 地图 · 连江县城</a>：核对敖江绕城、道路、交叉口和沿海空间关系。</li>
+<li><a href="https://zh.wikipedia.org/wiki/连江县" target="_blank" rel="noreferrer">维基百科 · 连江县</a>：核对凤城、敖江水系、琯头与闽江口、黄岐半岛及地方背景。</li>
+<li><a href="https://www.fzlj.gov.cn/xjwz/zwgk/gggs/202406/t20240612_4841331.htm" target="_blank" rel="noreferrer">连江县规划许可公示</a>：滨江悦公馆位于敖江路与玉荷东路交叉口东南角，用地 8,428㎡。</li>
+<li><a href="https://m.fznews.com.cn/fzyw/20260126/d429we0uQc.shtml" target="_blank" rel="noreferrer">福州日报 · 2026年1月26日报道</a>：确认“敖江路88号”、大平层与中央公共广场设计。</li>
+<li><a href="https://www.sohu.com/a/1023102922_122779484" target="_blank" rel="noreferrer">楼盘推广资料及效果图</a>：参考单栋主楼、浅色立面、顶部挑檐、低层院落和约5米抬板；属营销参考，非竣工实测。</li>
+<li><a href="https://www.openstreetmap.org/way/1332571761" target="_blank" rel="noreferrer">OpenStreetMap · 滨江悦公馆地块</a>：模型位置使用该地块的 WGS84 坐标，避免与国内地图偏移坐标混用。</li></ul><p class="source-limit">这是基于公开数据的场景重建，不是测绘级数字孪生。已有楼层标注优先使用；缺失楼层按建筑用途估算。88号主楼暂按效果图估算23个住宅层、约80米总高，具体层数、立面和庭院布局仍以实际建筑为准。区域视图为矩形地理窗口，含周边地形，不表示县域边界。采集：2026-09-08。</p></dialog>
+<script type="module" src="/src/main.js"></script></body></html>
