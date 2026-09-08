@@ -21,9 +21,13 @@ const places={
  pagoda:{name:'含光塔',sub:'敖江东岸 · 含光生态公园',tag:'HANGUANG · EAST BANK',p:[119.55254,26.20481],y:world.pagodaBase+.15,offset:[2.2,2.5,3.4],description:'含光塔位于县城东侧、敖江东岸。塔、寺院与含光生态公园相邻，与河西的城市街区隔江相望。',meta:'落点取自地图建筑轮廓；塔身细部为概括建模'},
  qingzhi:{name:'青芝山',sub:'琯头镇 · 闽江口北侧',tag:'QINGZHI · GUANTOU',p:[119.540,26.151],offset:[15,16,21],description:'青芝山位于琯头一带，以岩洞、奇石和常绿林地著称。它在连江县城南面，靠近闽江口北侧，呈现连江南部的低山地貌。',meta:'山体使用实际高程；景区范围近似定位'},
  huangqi:{name:'黄岐半岛',sub:'黄岐渔港 · 向海而生',tag:'HUANGQI · FISHING PORT',p:[119.878405,26.322],offset:[25,30,40],description:'黄岐半岛位于连江东北部、罗源湾南侧。山岭、港湾与海岸村落交错，黄岐渔港面向半岛南侧海湾。',meta:'实际高程与港区道路；未测建筑仅作低层体量示意'},
+ government:{name:'连江县人民政府',sub:'凤城镇八一六北路81号',tag:'LIANJIANG GOVERNMENT',p:[119.5398,26.2148],offset:[5,7,9],description:'连江县人民政府位于福州市连江县凤城镇八一六北路81号，是县城公共服务与城市治理的核心地标。',meta:'地址：福州市连江县凤城镇八一六北路81号'},
+ kuilong:{name:'魁龙坊',sub:'古街石牌坊 · 四柱三间五楼',tag:'KUILONG ARCHWAY',p:[119.5322,26.1991],offset:[3,4,5],description:'连江古街代表性石牌坊，四柱三间五楼，浮雕包含花鸟、人物与瑞兽，周边保留古民居和传统店铺。',meta:'历史街区地标；牌坊细部为概括建模'},
+ wenbita:{name:'文笔塔',sub:'文笔山 · 九层仿古塔',tag:'WENBI PAGODA',p:[119.548,26.220],y:world.height(...project(119.548,26.220))+.02,offset:[3,4,6],description:'文笔山上的新建仿古八角九层楼阁式塔，高49.9米，设电梯和观景台；夜间灯光倒映江面。',meta:'高度按公开资料49.9米建模；位置与山体为地图核对示意'},
+ kuilongDistrict:{name:'魁龙坊历史街区',sub:'古街保护更新 · ICONIC Awards',tag:'KUILONG HISTORIC QUARTER',p:[119.5328,26.1995],offset:[8,9,12],description:'以保护和更新历史公共空间为核心，保留传统生活场景。2024年保护更新项目获德国ICONIC Awards BEST OF BEST至尊奖。',meta:'历史街区范围为示意；项目奖项信息按公开资料'},
  qida:{name:'奇达村',sub:'旗冠顶下 · 海上养殖',tag:'QIDA · COASTAL VILLAGE',p:[119.868,26.373],offset:[16,19,28],description:'奇达村位于安凯乡，村落紧贴山海。旗冠顶在村庄西南侧，海湾中的渔排反映连江沿海渔业与养殖业的地方特征。',meta:'养殖区范围取自地图；渔排为区域内示意模型'}
 };
-const destinationKeys=['estate','river','pagoda','qingzhi','huangqi','qida'];
+const destinationKeys=['estate','government','kuilong','wenbita','kuilongDistrict','river','pagoda','qingzhi','huangqi','qida'];
 $('#destinations').innerHTML=destinationKeys.map((k,i)=>`<button class="destination" data-go="${k}"><span class="number">0${i+1}</span><span>${places[k].name}<small>${places[k].sub}</small></span><span class="arrow">↗</span></button>`).join('');
 let current='city',transition=null,touring=false,timeMode='day',frame=0;
 const targetFor=p=>vec(p.p[0],p.p[1],p.y);
@@ -47,7 +51,7 @@ const labelSpecs=[
 ];
 const labels=labelSpecs.map(s=>{const el=document.createElement(s.key?'button':'span');el.className=`map-label ${s.type||''}`;el.textContent=s.name;if(s.key){el.setAttribute('aria-label',`前往${s.name}`);el.addEventListener('click',()=>flyTo(s.key));}$('#labels').append(el);return {...s,el,position:vec(...s.p,s.y)};});
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>flyTo(b.dataset.go)));$('.brand').addEventListener('click',e=>{e.preventDefault();flyTo('city');});$('#detail-action').onclick=()=>flyTo('estate',false,true);$('#close-detail').onclick=()=>$('#detail').hidden=true;
-$('#sources-button').onclick=()=>$('#sources').showModal();$('#close-sources').onclick=()=>$('#sources').close();$('#sources').addEventListener('click',e=>{if(e.target===$('#sources')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+
 $('#layers-button').onclick=()=>{const el=$('#layers');el.hidden=!el.hidden;$('#layers-button').setAttribute('aria-expanded',String(!el.hidden));};
 $('#show-buildings').onchange=e=>world.buildings.visible=e.target.checked;$('#show-roads').onchange=e=>world.roads.visible=e.target.checked;$('#show-trees').onchange=e=>world.trees.visible=e.target.checked;$('#show-labels').onchange=e=>$('#labels').hidden=!e.target.checked;
 const palettes={day:{sky:'#d7e5df',sun:'#fff1d1',hemi:'#f9f6e4',ground:'#788875',sunI:3,hemiI:2,exposure:1.15,offset:[-40,65,38]},sunset:{sky:'#dfd6c7',sun:'#ffb476',hemi:'#fbe0c2',ground:'#807a65',sunI:3.5,hemiI:1.5,exposure:1.06,offset:[-65,24,30]},night:{sky:'#142f36',sun:'#a3c5d3',hemi:'#b6c9d0',ground:'#304c45',sunI:.7,hemiI:.75,exposure:.95,offset:[-35,65,25]}};

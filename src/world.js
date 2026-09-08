@@ -85,6 +85,15 @@ export async function createWorld(scene,onProgress){
  // Hanguang Pagoda is on the east bank, not an island transplanted from another city.
  const pagodaPos=project(119.55254,26.20481),pagodaBase=Math.max(.03,height(...pagodaPos));
  for(let i=0;i<7;i++){const h=.043,r=.055-i*.004,y=pagodaBase+i*h;const g=new T.CylinderGeometry(r*.8,r*.85,h*.84,8);g.translate(pagodaPos[0],y+h/2,pagodaPos[1]);bake(g,m.sand,buildings);const roof=new T.CylinderGeometry(r*.65,r*1.18,.015,8);roof.translate(pagodaPos[0],y+h,pagodaPos[1]);bake(roof,m.stone,buildings);}
+ // New county landmarks: restrained civic building, historic archway, and 49.9m Wenbi Pagoda.
+ const govPos=project(119.5398,26.2148), govBase=Math.max(.03,height(...govPos));
+ box(govPos[0],govBase+.075,govPos[1],1.15,.15,.7,m.stone,buildings); box(govPos[0],govBase+.32,govPos[1]-.22,.72,.5,.18,m.white,buildings); box(govPos[0],govBase+.6,govPos[1]-.22,.82,.08,.22,m.roof,buildings);
+ const archPos=project(119.5322,26.1991), archBase=Math.max(.03,height(...archPos));
+ for(const x of [-.12,.12]){box(archPos[0]+x,archBase+.12,archPos[1],.045,.24,.055,m.stone,buildings);box(archPos[0]+x,archBase+.29,archPos[1],.06,.035,.07,m.roof,buildings);}
+ box(archPos[0],archBase+.22,archPos[1],.34,.05,.06,m.stone,buildings);box(archPos[0],archBase+.34,archPos[1],.43,.055,.075,m.roof,buildings);
+ const wbPos=project(119.548,26.220), wbBase=Math.max(.03,height(...wbPos));
+ for(let i=0;i<9;i++){const y=wbBase+i*.055, r=.12-i*.008; const shaft=new T.Mesh(new T.CylinderGeometry(r*.72,r,.052,8),m.stone);shaft.position.set(wbPos[0],y+.026,wbPos[1]);buildings.add(shaft);const roof=new T.Mesh(new T.ConeGeometry(r*1.25,.018,8),m.roof);roof.position.set(wbPos[0],y+.06,wbPos[1]);buildings.add(roof);}
+ const wbTop=wbBase+.54; const fin=new T.Mesh(new T.ConeGeometry(.018,.06,8),m.roof);fin.position.set(wbPos[0],wbTop+.03,wbPos[1]);buildings.add(fin);
  // Street trees use mapped positions; park infill is decorative at 5–9 m high.
  const treePoints=[];
  for(const f of features)if(f.type==='node'&&f.tags.natural==='tree'){const [x,z]=project(f.lon,f.lat);if(!isRiver(x,z))treePoints.push([x,z,.05+rand()*.04]);}
