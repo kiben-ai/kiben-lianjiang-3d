@@ -16,7 +16,7 @@ try{world=await createWorld(scene,t=>$('#loading-text').textContent=t);}catch(e)
 const places={
  city:{name:'凤城县城',sub:'敖江环抱的下游平原',tag:'FENGCHENG · AO RIVER',p:[119.537,26.206],offset:[27,35,44],description:'敖江从西侧进入平原，绕过县城南缘，在东侧折向东北。凤城的街巷与住宅沿着这片河谷平原展开。',meta:'县城道路与建筑轮廓：OpenStreetMap'},
  region:{name:'连江山海全景',sub:'真实高程 · 区域视图',tag:'LIANJIANG · REGIONAL LANDSCAPE',p:[119.655,26.288],offset:[0,620,680],description:'连江县城位于西南侧敖江下游平原，琯头在县城南面，黄岐半岛向东北延伸。罗源湾位于半岛北侧，闽江口位于连江南部。',meta:'地理窗口含周边地区；不代表行政边界'},
- estate:{name:'敖江路88号',sub:'滨江悦公馆 · 重点建筑',tag:'NO. 88 · AOJIANG ROAD',p:[119.54473,26.20202],y:world.estateBase+.4,offset:[1.8,1.7,2.6],description:'一栋浅色住宅主楼与低层院落围合抬板庭园。连续阳台、竖向框架和屋顶挑檐，构成这座侨乡住宅的外观。',meta:'敖江路 × 玉荷东路东南角 · 地块8,428㎡\n效果图参考模型；楼层和尺寸为估算',close:[1.1,.8,1.7]},
+ estate:{name:'敖江路88号',sub:'滨江悦公馆 · 重点建筑',tag:'NO. 88 · AOJIANG ROAD',p:[119.54473,26.20202],y:world.estateBase+.4,offset:[1.8,1.7,2.6],description:'建筑面积约300平方米+家族大平层，专属打造限量46席。VIPLine 059126666766',meta:'敖江路 × 玉荷东路东南角 · 地块8,428㎡\n效果图参考模型；楼层和尺寸为估算',close:[1.1,.8,1.7]},
  river:{name:'敖江与江滨公园',sub:'绕城弯道 · 两岸生活',tag:'AO RIVER · RIVERSIDE',p:[119.533,26.1958],offset:[10,13,17],description:'县城南面的江滨公园沿敖江展开，江对岸是江南镇。解放大桥、玉泉大桥和鳌峰大桥连接两岸；这里的河道保留实际弯曲形态。',meta:'水域、桥位与公园轮廓均来自地图数据'},
  pagoda:{name:'含光塔',sub:'敖江东岸 · 含光生态公园',tag:'HANGUANG · EAST BANK',p:[119.55254,26.20481],y:world.pagodaBase+.15,offset:[2.2,2.5,3.4],description:'含光塔位于县城东侧、敖江东岸。塔、寺院与含光生态公园相邻，与河西的城市街区隔江相望。',meta:'落点取自地图建筑轮廓；塔身细部为概括建模'},
  qingzhi:{name:'青芝山',sub:'琯头镇 · 闽江口北侧',tag:'QINGZHI · GUANTOU',p:[119.540,26.151],offset:[15,16,21],description:'青芝山位于琯头一带，以岩洞、奇石和常绿林地著称。它在连江县城南面，靠近闽江口北侧，呈现连江南部的低山地貌。',meta:'山体使用实际高程；景区范围近似定位'},
